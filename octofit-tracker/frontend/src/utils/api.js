@@ -7,3 +7,8 @@ export function getApiBaseUrl() {
 
   return 'http://localhost:8000';
 }
+
+export function getApiUrl(path) {
+  const baseUrl = getApiBaseUrl();
+  return `${baseUrl}/api/${path}`;
+}
