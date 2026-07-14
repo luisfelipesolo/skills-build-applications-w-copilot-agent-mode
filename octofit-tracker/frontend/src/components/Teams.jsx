@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
 import { getApiUrl } from '../utils/api';
 
+const teamsEndpoint = 'https://${import.meta.env.VITE_CODESPACE_NAME}-8000.app.github.dev/api/teams/';
+
 function Teams() {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -9,7 +11,7 @@ function Teams() {
   useEffect(() => {
     async function loadTeams() {
       try {
-        const response = await fetch(getApiUrl('teams/'));
+        const response = await fetch(getApiUrl('teams/') || teamsEndpoint);
         if (!response.ok) throw new Error('Unable to load teams');
         const payload = await response.json();
         setItems(Array.isArray(payload) ? payload : payload.data || payload.results || []);
